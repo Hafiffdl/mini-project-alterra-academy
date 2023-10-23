@@ -18,17 +18,17 @@ class DBManager with ChangeNotifier {
     notifyListeners();
   }
 
-  void addProductToDB(Product product) async {
+  void addProduct(Product product) async {
     await _databaseHelper.insertProduct(product);
     getAllProducts();
   }
 
-  void updateProductInDB(Product product) async {
+  void updateProduct(Product product) async {
     await _databaseHelper.updateProduct(product);
     getAllProducts();
   }
 
-  void deleteProductFromDB(int id) async {
+  void deleteProduct(int id) async {
     await _databaseHelper.deleteProduct(id);
     getAllProducts();
   }

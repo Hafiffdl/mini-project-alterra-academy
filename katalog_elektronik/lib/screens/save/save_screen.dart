@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:katalog_elektronik/helper/database_helper.dart';
 import 'package:katalog_elektronik/models/product_model.dart';
+import 'package:katalog_elektronik/screens/product_detail.dart';
 
 class SaveScreen extends StatefulWidget {
   final List<Product> savedProducts;
-  final Function(Product) onProductTapped;
   final Function(Product) onProductDeleted;
+  final DatabaseHelper dbHelper;
 
   const SaveScreen({
     Key? key,
     required this.savedProducts,
-    required this.onProductTapped,
     required this.onProductDeleted,
+    required this.dbHelper, 
   }) : super(key: key);
 
   @override
@@ -25,7 +26,7 @@ class _SaveScreenState extends State<SaveScreen> {
   void initState() {
     super.initState();
     dbHelper = DatabaseHelper();
-    getAllProducts(); 
+    getAllProducts();
   }
 
   Future<void> getAllProducts() async {
@@ -45,6 +46,7 @@ class _SaveScreenState extends State<SaveScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Colors.teal,
         title: const Text(
           'Saved Products',
@@ -62,7 +64,16 @@ class _SaveScreenState extends State<SaveScreen> {
                     margin: const EdgeInsets.all(10.0),
                     child: InkWell(
                       onTap: () {
-                        widget.onProductTapped(product);
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProductDetailScreen(
+                              product: product,
+                              onSave: saveProduct, 
+                            ),
+                          ),
+                        );
                       },
                       child: ListTile(
                         title: Text(product.name ?? ''),
@@ -97,7 +108,7 @@ class _SaveScreenState extends State<SaveScreen> {
                             });
                             if (product.id != null) {
                               await dbHelper.deleteProduct(product.id!);
-                              getAllProducts(); 
+                              getAllProducts();
                             }
                           },
                         ),

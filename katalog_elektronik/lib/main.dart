@@ -12,7 +12,6 @@ void main() {
         ChangeNotifierProvider(create: (context) => DBManager()),
         ChangeNotifierProvider(create: (context) => UserProvider()),
         ChangeNotifierProvider(create: (context) => SavedProducts()),
-        
       ],
       child: const MyApp(),
     ),

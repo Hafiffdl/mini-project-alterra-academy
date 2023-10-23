@@ -31,7 +31,7 @@ class SignupScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 20),
-              Image.asset('assets/test.png', height: 200, width: 200),
+              Image.asset('assets/tes.png', height: 200, width: 200),
               const SizedBox(height: 30),
               const Text(
                 'Create an Account',
@@ -137,11 +137,8 @@ void onTapSignUp(BuildContext context) async {
       email: _emailController.text,
     );
 
-    // Simpan nama pengguna ke SharedPreferences
     final loginData = await SharedPreferences.getInstance();
     loginData.setString('username', newUser.username);
-
-    // Navigasi ke halaman beranda
     Navigator.pushNamed(context, AppRoutes.homeScreen);
   }
 }

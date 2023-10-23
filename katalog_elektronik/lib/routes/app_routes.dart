@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:katalog_elektronik/screens/beranda/home_screen.dart';
-import 'package:katalog_elektronik/screens/login_screen.dart';
-import 'package:katalog_elektronik/screens/signup_screen.dart';
+import 'package:katalog_elektronik/screens/beranda/home_screen_viewmodel.dart';
+import 'package:katalog_elektronik/auth/login_screen.dart';
+import 'package:katalog_elektronik/auth/signup_screen.dart';
 import 'package:katalog_elektronik/screens/splash_screen.dart';
 
 class AppRoutes {
@@ -12,9 +13,10 @@ class AppRoutes {
 
 
   static Map<String, WidgetBuilder> get routes => {
-    splashScreen: (context) => const SplashScreen(),
-    loginScreen: (context) => const LoginScreen(),
-    signupScreen: (context) => SignupScreen(),
-    homeScreen: (context) => const HomeScreen(),
-  };
+  splashScreen: (context) => const SplashScreen(),
+  loginScreen: (context) => const LoginScreen(),
+  signupScreen: (context) => SignupScreen(),
+  homeScreen: (context) => HomeScreen(viewModel: HomeScreenViewModel()),
+};
+
 }

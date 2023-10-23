@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:katalog_elektronik/routes/app_routes.dart';
 import 'package:katalog_elektronik/screens/beranda/home_screen.dart';
+import 'package:katalog_elektronik/screens/beranda/home_screen_viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -37,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (context) => const HomeScreen(),
+          builder: (context) => HomeScreen(viewModel: HomeScreenViewModel()),
         ),
         (route) => false,
       );
@@ -81,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset('assets/splashscreen.png', height: 200, width: 200),
+              Image.asset('assets/tes.png', height: 200, width: 200),
               const SizedBox(height: 70),
               Form(
                 key: formKey,
@@ -159,7 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const HomeScreen(),
+                              builder: (context) => HomeScreen(viewModel: HomeScreenViewModel()),
                             ),
                             (route) => false,
                           );
