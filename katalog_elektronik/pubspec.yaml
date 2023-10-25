@@ -44,6 +44,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   path: ^1.8.3
+  http: ^1.1.0
+  intl: ^0.18.1
+  envied: ^0.3.0+3
   
 
 dev_dependencies:
@@ -56,6 +59,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  envied_generator: ^0.3.0+3
+  build_runner: ^2.4.6
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

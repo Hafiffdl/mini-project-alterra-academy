@@ -22,7 +22,12 @@ class SignupScreen extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
       backgroundColor: Colors.teal,
-      title: const Text('Sign Up'),
+      title: Text('Sign Up', 
+      style: GoogleFonts.poppins(
+        textStyle: const TextStyle(
+        fontSize: 18, color: Colors.white,
+        )),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(

@@ -10,7 +10,8 @@ class ProfileDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile Detail'),
+        centerTitle: true,
+        title: Text('Profile Detail', style: GoogleFonts.poppins()),
       ),
       body: Center(
         child: Column(

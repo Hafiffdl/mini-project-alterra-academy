@@ -71,7 +71,12 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Login"),
+        title: Text("Login",
+        style: GoogleFonts.poppins(
+        textStyle: const TextStyle(
+        fontSize: 18, color: Colors.white,
+        ),),
+        ),
         elevation: 0,
         centerTitle: true,
         backgroundColor: Colors.teal,

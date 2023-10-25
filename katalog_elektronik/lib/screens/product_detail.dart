@@ -36,9 +36,11 @@ void initState() {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.teal,
       appBar: AppBar(
+        backgroundColor: Colors.teal,
         centerTitle: true,
-        title: Text(widget.product.name ?? 'Product Detail', ),
+        title: Text(widget.product.name ?? 'Product Detail', style: GoogleFonts.poppins(color: Colors.white)),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -68,7 +70,7 @@ void initState() {
                     ),
                     Text(
                       'Price: IDR ${widget.product.price?.toStringAsFixed(2) ?? '0.00'}',
-                      style: const TextStyle(
+                      style: GoogleFonts.poppins(
                         fontSize: 18,
                         color: Colors.black,
                         fontWeight: FontWeight.bold,

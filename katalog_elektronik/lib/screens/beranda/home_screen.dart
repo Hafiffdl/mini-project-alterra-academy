@@ -7,6 +7,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:katalog_elektronik/helper/database_helper.dart';
 import 'package:katalog_elektronik/models/product_model.dart';
 import 'package:katalog_elektronik/providers/save_provider.dart';
+import 'package:katalog_elektronik/screens/ai_screen.dart';
 import 'package:katalog_elektronik/screens/beranda/home_screen_viewmodel.dart';
 import 'package:katalog_elektronik/screens/news/news_screen.dart';
 import 'package:katalog_elektronik/screens/product_detail.dart';
@@ -91,7 +92,6 @@ class _HomeScreenState extends State<HomeScreen> {
               }
               setState(() {});
 
-              // Menggunakan FToast untuk menampilkan toast message
               FToast().init(context);
               FToast().showToast(
                 child: Container(
@@ -101,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25.0),
-                    color: Colors.teal, // Warna latar belakang toast
+                    color: Colors.teal,
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -134,13 +134,12 @@ class _HomeScreenState extends State<HomeScreen> {
   );
 }
 
-
-
   @override
   Widget build(BuildContext context) {
     final savedProducts = Provider.of<SavedProducts>(context, listen: false);
     final viewModel = widget.viewModel;
     return Scaffold(
+      backgroundColor: Colors.teal,
       body: IndexedStack(
         index: _currentIndex,
         children: <Widget>[
@@ -150,9 +149,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.all(20),
                 alignment: Alignment.center,
                 child: Text(
-                  'Welcome, ${viewModel.username}!',
+                  'Welcome !',
                   style: GoogleFonts.poppins(
-                    color: Colors.teal,
+                    color: Colors.white,
                     fontSize: 18,
                   ),
                 ),
@@ -167,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Expanded(
                           child: Card(
                             shadowColor: Colors.teal,
-                            color: Colors.grey[300]!,
+                            color: Colors.white,
                             margin: const EdgeInsets.only(
                               bottom: 20,
                               left: 20,
@@ -251,7 +250,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Expanded(
                             child: Card(
                               shadowColor: Colors.teal,
-                              color: Colors.grey[300]!,
+                              color: Colors.white,
                               margin: const EdgeInsets.only(
                                 bottom: 20,
                                 left: 10,
@@ -350,6 +349,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       bottomNavigationBar: CurvedNavigationBar(
+        buttonBackgroundColor: Colors.teal,
+        height: 60,
         animationCurve: Curves.easeOut,
         backgroundColor: Colors.white,
         color: Colors.teal,
@@ -366,9 +367,17 @@ class _HomeScreenState extends State<HomeScreen> {
           });
         },
       ),
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.chat),
+        backgroundColor: Colors.white,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AiScreen()),
+          );
+        },
+        child: const Icon(Icons.recommend_rounded, color: Colors.teal),
       )
     );
   }

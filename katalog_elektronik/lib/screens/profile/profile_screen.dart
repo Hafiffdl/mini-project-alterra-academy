@@ -52,7 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Profile"),
+        title: Text("Profile", style: GoogleFonts.poppins(color: Colors.white),),
         backgroundColor: Colors.teal,
       ),
       body: SingleChildScrollView(
@@ -94,7 +94,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               onPressed: () async {
                                 if (_newUsernameController.text.isNotEmpty) {
                                   await saveNewUsername(_newUsernameController.text);
-                                  // Perbarui username di layar setelah pembaruan
+                                  // username di layar setelah pembaruan
                                   setState(() {
                                     username = _newUsernameController.text;
                                   });
@@ -132,7 +132,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Column(
                   children: [
                     Text(
-                      username, // Tampilkan username yang diperbarui di sini
+                      username,
                       style: GoogleFonts.poppins(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,

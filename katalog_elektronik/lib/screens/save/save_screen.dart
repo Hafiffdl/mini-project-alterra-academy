@@ -22,14 +22,13 @@ class SaveScreen extends StatefulWidget {
 
 class _SaveScreenState extends State<SaveScreen> {
   late DatabaseHelper dbHelper;
-  late FToast fToast; // Inisialisasi fToast
+  late FToast fToast;
 
   @override
   void initState() {
     super.initState();
     dbHelper = DatabaseHelper();
     fToast = FToast();
-    fToast.init(context);
     getAllProducts();
   }
 
@@ -47,26 +46,29 @@ class _SaveScreenState extends State<SaveScreen> {
   }
 
   void _showToast(String message) {
-    Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.greenAccent,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Icon(Icons.check),
-          const SizedBox(
-            width: 12.0,
-          ),
-          Text(message),
-        ],
-      ),
-    );
-
+    fToast.init(context);
     fToast.showToast(
-      child: toast,
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 24.0,
+          vertical: 12.0,
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25.0),
+          color: Colors.teal,
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(
+              Icons.check,
+              color: Colors.white,
+            ),
+            const SizedBox(width: 8),
+            Text(message, style: const TextStyle(color: Colors.white)),
+          ],
+        ),
+      ),
       gravity: ToastGravity.TOP,
       toastDuration: const Duration(seconds: 2),
     );
@@ -75,6 +77,7 @@ class _SaveScreenState extends State<SaveScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.teal,
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.teal,
@@ -90,7 +93,7 @@ class _SaveScreenState extends State<SaveScreen> {
                 itemBuilder: (context, index) {
                   final product = widget.savedProducts[index];
                   return Card(
-                    color: Colors.grey[300],
+                    color: Colors.white,
                     margin: const EdgeInsets.all(10.0),
                     child: InkWell(
                       onTap: () {
@@ -154,8 +157,8 @@ class _SaveScreenState extends State<SaveScreen> {
                                         if (product.id != null) {
                                           await dbHelper.deleteProduct(product.id!);
                                           getAllProducts();
+                                          _showToast("Product deleted");
                                         }
-                                        _showToast("Product deleted"); // Menampilkan toast
                                       },
                                       child: const Text("Delete"),
                                     ),

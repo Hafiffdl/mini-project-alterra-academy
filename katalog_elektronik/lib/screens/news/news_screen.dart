@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:katalog_elektronik/models/api/news_model.dart';
 import 'package:katalog_elektronik/screens/news/news_detail.dart';
 
@@ -48,10 +49,11 @@ class _NewsScreenState extends State<NewsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.teal,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.teal,
         centerTitle: true,
-        title: const Text('Electronic News'),
+        title: Text('News', style: GoogleFonts.poppins(color: Colors.white)),
       ),
       body: isLoading
           ? const Center(
@@ -86,7 +88,6 @@ class _NewsScreenState extends State<NewsScreen> {
                         ),
                         subtitle: Text(article.description),
                         onTap: () {
-                          // Navigasi ke layar detail artikel dengan data artikel yang dipilih
                           Navigator.push(
                             context,
                             MaterialPageRoute(
