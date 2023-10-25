@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:katalog_elektronik/helper/database_helper.dart';
 import 'package:katalog_elektronik/models/product_model.dart';
 import 'package:katalog_elektronik/screens/product_detail.dart';
@@ -12,7 +13,7 @@ class SaveScreen extends StatefulWidget {
     Key? key,
     required this.savedProducts,
     required this.onProductDeleted,
-    required this.dbHelper, 
+    required this.dbHelper,
   }) : super(key: key);
 
   @override
@@ -21,11 +22,14 @@ class SaveScreen extends StatefulWidget {
 
 class _SaveScreenState extends State<SaveScreen> {
   late DatabaseHelper dbHelper;
+  late FToast fToast; // Inisialisasi fToast
 
   @override
   void initState() {
     super.initState();
     dbHelper = DatabaseHelper();
+    fToast = FToast();
+    fToast.init(context);
     getAllProducts();
   }
 
@@ -40,6 +44,32 @@ class _SaveScreenState extends State<SaveScreen> {
   void saveProduct(Product product) async {
     await dbHelper.insertProduct(product);
     getAllProducts();
+  }
+
+  void _showToast(String message) {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.greenAccent,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(Icons.check),
+          const SizedBox(
+            width: 12.0,
+          ),
+          Text(message),
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.TOP,
+      toastDuration: const Duration(seconds: 2),
+    );
   }
 
   @override
@@ -64,13 +94,12 @@ class _SaveScreenState extends State<SaveScreen> {
                     margin: const EdgeInsets.all(10.0),
                     child: InkWell(
                       onTap: () {
-
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => ProductDetailScreen(
                               product: product,
-                              onSave: saveProduct, 
+                              onSave: saveProduct,
                             ),
                           ),
                         );
@@ -101,15 +130,39 @@ class _SaveScreenState extends State<SaveScreen> {
                         ),
                         trailing: IconButton(
                           icon: const Icon(Icons.delete),
-                          onPressed: () async {
-                            widget.onProductDeleted(product);
-                            setState(() {
-                              widget.savedProducts.remove(product);
-                            });
-                            if (product.id != null) {
-                              await dbHelper.deleteProduct(product.id!);
-                              getAllProducts();
-                            }
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text("Delete Product"),
+                                  content: const Text("Are you sure you want to delete this product?"),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text("Cancel"),
+                                    ),
+                                    TextButton(
+                                      onPressed: () async {
+                                        Navigator.of(context).pop();
+                                        widget.onProductDeleted(product);
+                                        setState(() {
+                                          widget.savedProducts.remove(product);
+                                        });
+                                        if (product.id != null) {
+                                          await dbHelper.deleteProduct(product.id!);
+                                          getAllProducts();
+                                        }
+                                        _showToast("Product deleted"); // Menampilkan toast
+                                      },
+                                      child: const Text("Delete"),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
                           },
                         ),
                       ),

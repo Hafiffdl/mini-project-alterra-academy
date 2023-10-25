@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:katalog_elektronik/helper/database_helper.dart';
@@ -64,14 +65,76 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void navigateFavorite(Product product) {
-    final savedProducts = Provider.of<SavedProducts>(context, listen: false);
-    if (savedProducts.savedProducts.contains(product)) {
-      savedProducts.removeFromSavedProducts(product);
-    } else {
-      savedProducts.addToSavedProducts(product);
-      dbHelper.insertProduct(product);
-    }
-  }
+  final savedProducts = Provider.of<SavedProducts>(context, listen: false);
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text("Bookmark Product"),
+        content: const Text("Do you want to bookmark this product?"),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text("Cancel"),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              if (savedProducts.savedProducts.contains(product)) {
+                savedProducts.removeFromSavedProducts(product);
+                dbHelper.deleteProduct(product.id!);
+              } else {
+                savedProducts.addToSavedProducts(product);
+                dbHelper.insertProduct(product);
+              }
+              setState(() {});
+
+              // Menggunakan FToast untuk menampilkan toast message
+              FToast().init(context);
+              FToast().showToast(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24.0,
+                    vertical: 12.0,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25.0),
+                    color: Colors.teal, // Warna latar belakang toast
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.check,
+                        color: Colors.white,
+                      ),
+                      const SizedBox(
+                        width: 12.0,
+                      ),
+                      Text(
+                        savedProducts.savedProducts.contains(product) ? "Bookmarked" : "",
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                gravity: ToastGravity.TOP, // Posisi toast
+                toastDuration: const Duration(seconds: 2), // Durasi tampilan toast
+              );
+            },
+            child: const Text("OK"),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -303,6 +366,10 @@ class _HomeScreenState extends State<HomeScreen> {
           });
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.chat),
+      )
     );
   }
 }
