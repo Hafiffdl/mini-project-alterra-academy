@@ -65,7 +65,7 @@ if (mounted) {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text("Electronic Recommendation", style: GoogleFonts.poppins(color: Colors.white)),
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.teal[300],
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -78,7 +78,7 @@ if (mounted) {
               children: [
                 const Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: Text("Pilih Recommendation"),
+                  child: Text("Select Electronic Recommendation"),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -144,7 +144,7 @@ if (mounted) {
                         onPressed: _getRecommendations,
                           child: isLoading
                             ? const CircularProgressIndicator()
-                            : const Text("Dapatkan Rekomendasi"),
+                            : const Text("Get Recommendation"),
                       ),
                 ),
               ],

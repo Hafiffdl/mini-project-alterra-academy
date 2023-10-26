@@ -36,9 +36,9 @@ void initState() {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.teal,
+      backgroundColor: Colors.teal[300],
       appBar: AppBar(
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.teal[300],
         centerTitle: true,
         title: Text(widget.product.name ?? 'Product Detail', style: GoogleFonts.poppins(color: Colors.white)),
       ),
@@ -55,7 +55,7 @@ void initState() {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
-              color: Colors.grey[300],
+              color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(

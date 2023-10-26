@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,6 +14,7 @@ import 'package:katalog_elektronik/screens/news/news_screen.dart';
 import 'package:katalog_elektronik/screens/product_detail.dart';
 import 'package:katalog_elektronik/screens/profile/profile_screen.dart';
 import 'package:katalog_elektronik/screens/save/save_screen.dart';
+import 'package:katalog_elektronik/screens/slider_detail.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -66,80 +68,80 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void navigateFavorite(Product product) {
-  final savedProducts = Provider.of<SavedProducts>(context, listen: false);
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: const Text("Bookmark Product"),
-        content: const Text("Do you want to bookmark this product?"),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text("Cancel"),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              if (savedProducts.savedProducts.contains(product)) {
-                savedProducts.removeFromSavedProducts(product);
-                dbHelper.deleteProduct(product.id!);
-              } else {
-                savedProducts.addToSavedProducts(product);
-                dbHelper.insertProduct(product);
-              }
-              setState(() {});
+    final savedProducts = Provider.of<SavedProducts>(context, listen: false);
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Bookmark Product"),
+          content: const Text("Do you want to bookmark this product?"),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                if (savedProducts.savedProducts.contains(product)) {
+                  savedProducts.removeFromSavedProducts(product);
+                  dbHelper.deleteProduct(product.id!);
+                } else {
+                  savedProducts.addToSavedProducts(product);
+                  dbHelper.insertProduct(product);
+                }
+                setState(() {});
 
-              FToast().init(context);
-              FToast().showToast(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 24.0,
-                    vertical: 12.0,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25.0),
-                    color: Colors.teal,
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(
-                        Icons.check,
-                        color: Colors.white,
-                      ),
-                      const SizedBox(
-                        width: 12.0,
-                      ),
-                      Text(
-                        savedProducts.savedProducts.contains(product) ? "Bookmarked" : "",
-                        style: const TextStyle(
+                FToast().init(context);
+                FToast().showToast(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24.0,
+                      vertical: 12.0,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(25.0),
+                      color: Colors.teal,
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(
+                          Icons.check,
                           color: Colors.white,
                         ),
-                      )
-                    ],
+                        const SizedBox(
+                          width: 12.0,
+                        ),
+                        Text(
+                          savedProducts.savedProducts.contains(product) ? "Bookmarked" : "",
+                          style: const TextStyle(
+                            color: Colors.white,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                gravity: ToastGravity.TOP, // Posisi toast
-                toastDuration: const Duration(seconds: 2), // Durasi tampilan toast
-              );
-            },
-            child: const Text("OK"),
-          ),
-        ],
-      );
-    },
-  );
-}
+                  gravity: ToastGravity.TOP, // Toast position
+                  toastDuration: const Duration(seconds: 2), // Toast display duration
+                );
+              },
+              child: const Text("OK"),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     final savedProducts = Provider.of<SavedProducts>(context, listen: false);
     final viewModel = widget.viewModel;
     return Scaffold(
-      backgroundColor: Colors.teal,
+      backgroundColor: Colors.teal[300],
       body: IndexedStack(
         index: _currentIndex,
         children: <Widget>[
@@ -149,11 +151,113 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.all(20),
                 alignment: Alignment.center,
                 child: Text(
-                  'Welcome !',
+                  'Welcome!',
                   style: GoogleFonts.poppins(
                     color: Colors.white,
                     fontSize: 18,
                   ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              CarouselSlider(
+                items: [
+                  SingleChildScrollView(
+                    child: Container(
+                    margin: const EdgeInsets.all(5.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                          MaterialPageRoute(
+                            builder: (context) => const SliderImageDetail(
+                              imageUrl: 'assets/slider1.png')
+                            )
+                          );
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.asset(
+                                'assets/slider1.png', 
+                                fit: BoxFit.cover, 
+                                height: 170, 
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  SingleChildScrollView(
+                    child: Container(
+                      margin: const EdgeInsets.all(5.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                          MaterialPageRoute(
+                            builder: (context) => const SliderImageDetail(
+                              imageUrl: 'assets/slider2.png')
+                            )
+                          );
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.asset(
+                                'assets/slider2.png',
+                                fit: BoxFit.cover, 
+                                height: 170, 
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  SingleChildScrollView(
+                    child: Container(
+                      margin: const EdgeInsets.all(5.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                          MaterialPageRoute(
+                            builder: (context) => const SliderImageDetail(
+                              imageUrl: 'assets/slider3.png')
+                            )
+                          );
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.asset(
+                                'assets/slider3.png',
+                                fit: BoxFit.cover, 
+                                height: 170, 
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+                options: CarouselOptions(
+                  height: 200.0,
+                  enlargeCenterPage: true,
+                  autoPlay: true,
+                  aspectRatio: 16 / 9,
+                  autoPlayCurve: Curves.easeInOut,
+                  enableInfiniteScroll: true,
+                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                  viewportFraction: 0.8,
                 ),
               ),
               Expanded(
@@ -227,9 +331,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       GestureDetector(
                                         onTap: () {
                                           navigateFavorite(viewModel.products[startIndex]);
-                                          setState(() {
-                                            
-                                          });
+                                          setState(() {});
                                         },
                                         child: Icon(
                                           Icons.bookmark,
@@ -263,7 +365,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: Column(
                                   children: [
                                     Image.asset(
-                                      viewModel.products[startIndex + 1].imageUrl.toString(),
+                                      viewModel.products[startIndex + 1].imageUrl ?? '',
                                       fit: BoxFit.fitWidth,
                                       height: 200,
                                       width: double.infinity,
@@ -271,7 +373,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Padding(
                                       padding: const EdgeInsets.all(10),
                                       child: Text(
-                                        viewModel.products[startIndex + 1].name.toString(),
+                                        viewModel.products[startIndex + 1].name ?? '',
                                         style: GoogleFonts.poppins(
                                           fontWeight: FontWeight.normal,
                                         ),
@@ -310,8 +412,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         GestureDetector(
                                           onTap: () {
                                             navigateFavorite(viewModel.products[startIndex + 1]);
-                                            setState(() {
-                                            });
+                                            setState(() {});
                                           },
                                           child: Icon(
                                             Icons.bookmark,
@@ -342,6 +443,7 @@ class _HomeScreenState extends State<HomeScreen> {
             savedProducts: savedProducts.savedProducts,
             dbHelper: dbHelper,
             onProductDeleted: (product) {
+              // Handle product deletion here if needed
             },
           ),
           // Page 4 (Profile)
@@ -349,11 +451,11 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       bottomNavigationBar: CurvedNavigationBar(
-        buttonBackgroundColor: Colors.teal,
+        buttonBackgroundColor: Colors.teal[300],
         height: 60,
         animationCurve: Curves.easeOut,
         backgroundColor: Colors.white,
-        color: Colors.teal,
+        color: Colors.teal[300]!,
         index: _currentIndex,
         items: const <Widget>[
           Icon(Icons.home, size: 30, color: Colors.white),
@@ -378,7 +480,7 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         },
         child: const Icon(Icons.recommend_rounded, color: Colors.teal),
-      )
+      ),
     );
   }
 }

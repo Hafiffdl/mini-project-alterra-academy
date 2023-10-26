@@ -15,23 +15,25 @@ class ResultScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text("Rekomendasi", style: GoogleFonts.poppins(color: Colors.white)),
+        title: Text("Recommendation", style: GoogleFonts.poppins(color: Colors.white)),
         centerTitle: true,
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.teal[300],
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
+        child: Padding( 
+          padding: const EdgeInsets.all(10.0),
           child: Center(
             child: Column(
               children: [
                 const Text(
-                  "Rekomendasi Electronic",
+                  "Electronic Recommendation",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                const SizedBox(height: 30),
+                Image.asset('assets/aiscreen.png'),
                 ListView.builder(
                   shrinkWrap: true,
                   itemCount: gptResponseData.choices.length,

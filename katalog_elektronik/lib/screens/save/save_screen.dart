@@ -77,10 +77,10 @@ class _SaveScreenState extends State<SaveScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.teal,
+      backgroundColor: Colors.teal[300],
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.teal[300],
         title: const Text(
           'Saved Products',
           style: TextStyle(color: Colors.white),

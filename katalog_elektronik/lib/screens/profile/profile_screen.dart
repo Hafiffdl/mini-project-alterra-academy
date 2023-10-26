@@ -53,7 +53,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: Text("Profile", style: GoogleFonts.poppins(color: Colors.white),),
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.teal[300],
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -104,7 +104,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 'Save',
                                 style: GoogleFonts.poppins(
                                   fontSize: 17,
-                                  color: Colors.teal,
+                                  color: Colors.teal[300],
                                 ),
                               ),
                             ),
@@ -159,7 +159,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               const SizedBox(height: 30),
               ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.teal),
+                  backgroundColor: MaterialStateProperty.all(Colors.teal[300]),
                 ),
                 onPressed: () {
                   loginData.setBool('login', true);

@@ -49,9 +49,9 @@ class _NewsScreenState extends State<NewsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.teal,
+      backgroundColor: Colors.teal[300],
       appBar: AppBar(
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.teal[300],
         centerTitle: true,
         title: Text('News', style: GoogleFonts.poppins(color: Colors.white)),
       ),

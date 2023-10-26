@@ -25,7 +25,7 @@ class RecommendationService {
       final data = jsonEncode({
         "model": "text-davinci-003",
         "prompt": promptData,
-        "max_tokens": 200,
+        "max_tokens": 350,
         "temperature": 0.7,
         "top_p": 1,
         "frequency_penalty": 0,
