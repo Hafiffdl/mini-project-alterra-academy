@@ -65,7 +65,7 @@ class HomeScreenViewModel extends ChangeNotifier {
       price: 6650000.00,
     ),
     Product(
-      name: 'Apple Watch Ultra with Trail Loop',
+      name: 'Apple Watch Trail Loop',
       description: 'Apple Watch paling tangguh dan andal yang pernah ada, dirancang untuk penjelajahan, petualangan, dan ketahanan. Dengan casing titanium 49 mm sekelas industri dirgantara, kekuatan baterai yang lebih lama,1 aplikasi khusus yang berfungsi dengan sensor canggih, dan tombol Tindakan baru yang dapat disesuaikan.',
       imageUrl: 'assets/applewatch.png',
       price: 13999000.00,
