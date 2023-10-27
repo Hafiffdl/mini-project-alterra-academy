@@ -11,7 +11,8 @@ class ProfileDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Profile Detail', style: GoogleFonts.poppins()),
+        title: Text('Profile Detail', style: GoogleFonts.poppins(color: Colors.white)),
+        backgroundColor: Colors.teal[300],
       ),
       body: Center(
         child: Column(

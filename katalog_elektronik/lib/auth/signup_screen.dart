@@ -21,7 +21,7 @@ class SignupScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-      backgroundColor: Colors.teal,
+      backgroundColor: Colors.teal[300],
       title: Text('Sign Up', 
       style: GoogleFonts.poppins(
         textStyle: const TextStyle(
@@ -38,12 +38,12 @@ class SignupScreen extends StatelessWidget {
               const SizedBox(height: 20),
               Image.asset('assets/tes.png', height: 200, width: 200),
               const SizedBox(height: 30),
-              const Text(
+              Text(
                 'Create an Account',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Colors.teal,
+                  color: Colors.teal[300],
                 ),
               ),
               const SizedBox(height: 20),
@@ -111,7 +111,7 @@ class SignupScreen extends StatelessWidget {
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.teal,
+                        backgroundColor: Colors.teal[300],
                         minimumSize: const Size(double.infinity, 40),
                         padding: const EdgeInsets.all(15),
                       ),

@@ -79,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         elevation: 0,
         centerTitle: true,
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.teal[300],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -148,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 30),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.teal,
+                        backgroundColor: Colors.teal[300],
                         minimumSize: const Size(double.infinity, 40),
                         padding: const EdgeInsets.all(15),
                       ),

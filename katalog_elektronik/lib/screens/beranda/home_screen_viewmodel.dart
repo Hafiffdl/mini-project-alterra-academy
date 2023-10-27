@@ -64,6 +64,18 @@ class HomeScreenViewModel extends ChangeNotifier {
       imageUrl: 'assets/panasonicac.png',
       price: 6650000.00,
     ),
+    Product(
+      name: 'Apple Watch Ultra with Trail Loop',
+      description: 'Apple Watch paling tangguh dan andal yang pernah ada, dirancang untuk penjelajahan, petualangan, dan ketahanan. Dengan casing titanium 49 mm sekelas industri dirgantara, kekuatan baterai yang lebih lama,1 aplikasi khusus yang berfungsi dengan sensor canggih, dan tombol Tindakan baru yang dapat disesuaikan.',
+      imageUrl: 'assets/applewatch.png',
+      price: 13999000.00,
+    ),
+    Product(
+      name: 'Apple Watch Series 8',
+      description: 'Apple Watch Series 8 dilengkapi aplikasi dan sensor kesehatan canggih, sehingga Anda dapat melakukan pengukuran EKG,1 detak jantung, dan kadar oksigen darah,2 serta memantau perubahan suhu3 untuk informasi mendalam tentang siklus menstruasi Anda.4 Dan dengan Deteksi Tabrakan, pemantauan tahap tidur, serta metrik olahraga canggih, Apple Watch Series 8 membantu Anda tetap aktif, sehat, selamat, dan terhubung.',
+      imageUrl: 'assets/applewatch8.png',
+      price: 6999000.00,
+    ),
   ];
   final List<Product> savedProducts = [];
 
