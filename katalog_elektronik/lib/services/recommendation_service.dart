@@ -20,12 +20,12 @@ class RecommendationService {
       };
 
       String promptData =
-      'Berikan beberapa rekomendasi barang elektronik beserta deskripsinya $electronic dengan brand $brand dan dengan kisaran harga $budget.';
+      'Berikan beberapa rekomendasi barang elektronik beserta deskripsinya $electronic dengan brand $brand dan dengan harga $budget.';
 
       final data = jsonEncode({
         "model": "text-davinci-003",
         "prompt": promptData,
-        "max_tokens": 350,
+        "max_tokens": 400,
         "temperature": 0.7,
         "top_p": 1,
         "frequency_penalty": 0,
