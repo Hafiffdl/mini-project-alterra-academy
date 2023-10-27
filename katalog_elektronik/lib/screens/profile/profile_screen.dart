@@ -47,6 +47,37 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
+  Future<void> _showLogoutDialog() async {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Confirm Logout'),
+          content: const Text('Do you want to Logout?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); 
+              },
+              child: const Text('Batal'),
+            ),
+            TextButton(
+              onPressed: () {
+                loginData.setBool('login', false);
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SplashScreen()),
+                  (route) => false,
+                );
+              },
+              child: const Text('Logout', style: TextStyle(color: Colors.red)),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -162,15 +193,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   backgroundColor: MaterialStateProperty.all(Colors.teal[300]),
                 ),
                 onPressed: () {
-                  loginData.setBool('login', true);
-                  loginData.remove('username');
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const SplashScreen(),
-                    ),
-                    (route) => false,
-                  );
+                  _showLogoutDialog(); // Memanggil dialog konfirmasi logout
                 },
                 child: Text(
                   'Log Out',
