@@ -5,25 +5,25 @@ class HomeScreenViewModel extends ChangeNotifier {
   String username = '';
   final List<Product> products = [
     Product(
-      name: 'Sharp 32 Inci Led Tv',
+      name: 'Sharp 32 Inci Led Tv Hitam',
       description: 'TV dengan kualitas gambar yang tajam dengan warna yang cerah tidak hanya membuat nyaman di mata tetapi juga dapat memberikan pengalaman menonton yang lebih seru dan menyenangkan. Dengan TV LED persembahan Sharp, Anda akan memasuki dunia baru yang lebih berwarna. Hadir dengan berbagai teknologi serta fitur unggulan seperti, DVB-T2, Desain speaker menara IIOTO, dan Penguat antena. TV ini memiliki desain slim yang stylish serta mudah dipasangkan pada dinding.',
       imageUrl: 'assets/tvsharp.png',
       price: 2300000.00,
     ),
     Product(
-      name: 'Samsung Qled',
+      name: 'Samsung 43 Inci Qled 4K',
       description: 'Dengan fitur 100% Color Volume with Quantum Dot yang dapat mengambil cahaya dan mengubahnya menjadi warna menakjubkan menjadikan Samsung QLED 4K Smart TV 43 inci QA43Q60BAKXXD ini mampu memberikan tontonan yang terasa nyata pada tingkat kecerahan apa pun. Dilengkapi Quantum HDR membuat Smart TV ini juga mampu menghadirkan detail dan kontras untuk dapat merasakan kekuatan penuh di setiap gambar. Selain itu, didukung prosesor Quantum Processor Lite 4K untuk mengoptimalkan kualitas suara konten yang Anda tonton. Teknologi 4K Upscaling juga memastikan Anda mendapatkan resolusi hingga 4K untuk konten yang Anda sukai.',
       imageUrl: 'assets/tvsamsung.png',
       price: 9400000.00,
     ),
     Product(
-      name: 'Polytron Kulkas',
+      name: 'Polytron 450 Ltr Kulkas 2 pintu',
       description: 'Lemari es persembahan Polytron ini dilengkapi Inverter Technology yang membuatnya memiliki kinerja maksimal dengan lebih hemat energi hingga 20%. Hadir dengan desain premium yang dilengkapi LCD Display untuk melakukan pengaturan suhu secara digital dengan penampilan layar LCD yang modern menjadikan lemari es ini mampu menciptakan kesan mewah pada dapur dan ruang makan Anda. Selain itu, lemari es Polytron PRS 480X juga sudah dilengkapi dispenser air dengan kapasitas dispenser air dingin hingga 2 liter. Tidak perlu khawatir akan suara bising yang mengganggu, dalam melakukan kinerjanya lemari es ini memiliki tingkat kebisingan Ultra Silent.',
       imageUrl: 'assets/kulkaspolytron.png',
       price: 9600000.00,
     ),
     Product(
-      name: 'iPhone 14 Pro Max',
+      name: 'iPhone 14 Pro Max Deep Purple',
       description: 'iPhone 14 Pro Max. Memotret detail menakjubkan dengan kamera Utama 48 MP. Nikmati iPhone dalam cara yang sepenuhnya baru dengan layar yang Selalu Aktif dan Dynamic Island. Deteksi Tabrakan,1 sebuah fitur keselamatan baru, memanggil bantuan saat Anda tak bisa.',
       imageUrl: 'assets/iphone_14_promax.png',
       price: 19499000.00,

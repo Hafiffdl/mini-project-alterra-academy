@@ -479,7 +479,7 @@ class _HomeScreenState extends State<HomeScreen> {
             MaterialPageRoute(builder: (context) => const AiScreen()),
           );
         },
-        child: const Icon(Icons.recommend_rounded, color: Colors.teal),
+        child: const Icon(Icons.chat, color: Colors.teal),
       ),
     );
   }
