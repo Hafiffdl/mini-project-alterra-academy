@@ -63,18 +63,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             TextButton(
               onPressed: () {
-                loginData.setBool('login', false);
+                loginData.setBool('login', true);
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (context) => const SplashScreen()),
                   (route) => false,
                 );
+                showSuccessSnackBar();
               },
               child: const Text('Logout', style: TextStyle(color: Colors.red)),
             ),
           ],
         );
       },
+    );
+  }
+
+  void showSuccessSnackBar() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Logout successful"),
+      ),
     );
   }
 
@@ -193,7 +202,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   backgroundColor: MaterialStateProperty.all(Colors.teal[300]),
                 ),
                 onPressed: () {
-                  _showLogoutDialog(); // Memanggil dialog konfirmasi logout
+                  _showLogoutDialog();
                 },
                 child: Text(
                   'Log Out',
