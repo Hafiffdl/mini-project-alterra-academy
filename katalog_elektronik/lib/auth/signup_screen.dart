@@ -140,10 +140,14 @@ void onTapSignUp(BuildContext context) async {
     final newUser = User(
       username: _usernameController.text,
       email: _emailController.text,
+      password: _passwordController.text
+      
     );
 
     final loginData = await SharedPreferences.getInstance();
     loginData.setString('username', newUser.username);
+    loginData.setString('email', newUser.email);
+    loginData.setString('password', newUser.password);
     Navigator.pushNamed(context, AppRoutes.loginScreen);
   }
 }

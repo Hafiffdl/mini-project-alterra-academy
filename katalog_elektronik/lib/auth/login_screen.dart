@@ -33,6 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
       
       if (savedUsername != null && savedPassword != null) {
         _usernameController.text = savedUsername;
+        _passwordController.text = savedPassword;
       }
     }
   }
@@ -167,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 (route) => false,
                               );
-                            } else {
+                            } else { 
                               // Password salah diinputkan
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
@@ -183,7 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             );
                           }
-                        } 
+                        }
                       },
                       child: Text('Login',
                         style: GoogleFonts.poppins(
@@ -192,8 +193,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             color: Colors.white,
                           ),
                         ),
+                      )
                       ),
-                    ),
                   ],
                 ),
               ),
