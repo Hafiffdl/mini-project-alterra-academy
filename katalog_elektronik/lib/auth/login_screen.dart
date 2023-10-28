@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (newUser == false) {
       final savedUsername = loginData.getString('username');
       final savedPassword = loginData.getString('password');
-
+      
       if (savedUsername != null && savedPassword != null) {
         _usernameController.text = savedUsername;
       }
@@ -168,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 (route) => false,
                               );
                             } else {
-                              // password salah diinputkan
+                              // Password salah diinputkan
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                   content: Text("Invalid Password"),
@@ -176,14 +176,14 @@ class _LoginScreenState extends State<LoginScreen> {
                               );
                             }
                           } else {
-                            // username salah diinputkan
+                            // Username salah diinputkan
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text("Invalid Username"),
                               ),
                             );
                           }
-                        }
+                        } 
                       },
                       child: Text('Login',
                         style: GoogleFonts.poppins(
