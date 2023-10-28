@@ -27,16 +27,17 @@ class _LoginScreenState extends State<LoginScreen> {
     loginData = await SharedPreferences.getInstance();
     newUser = loginData.getBool("login") ?? true;
 
-    if (newUser == false) {
-      final savedUsername = loginData.getString('username');
-      final savedPassword = loginData.getString('password');
-      
-      if (savedUsername != null && savedPassword != null) {
-        _usernameController.text = savedUsername;
-        _passwordController.text = savedPassword;
-      }
-    }
+    if (!newUser) {
+    // ignore: use_build_context_synchronously
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => HomeScreen(viewModel: HomeScreenViewModel()),
+      ),
+      (route) => false,
+    );
   }
+}
 
   @override
   void initState() {
