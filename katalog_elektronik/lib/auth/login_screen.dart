@@ -1,6 +1,4 @@
-
 import 'package:email_validator/email_validator.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:katalog_elektronik/routes/app_routes.dart';
@@ -8,12 +6,11 @@ import 'package:katalog_elektronik/screens/beranda/home_screen.dart';
 import 'package:katalog_elektronik/screens/beranda/home_screen_viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();  
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -29,19 +26,14 @@ class _LoginScreenState extends State<LoginScreen> {
   void checkLogin() async {
     loginData = await SharedPreferences.getInstance();
     newUser = loginData.getBool("login") ?? true;
-    if (kDebugMode) {
-      print(newUser);
-    }
 
     if (newUser == false) {
-      // ignore: use_build_context_synchronously
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (context) => HomeScreen(viewModel: HomeScreenViewModel()),
-        ),
-        (route) => false,
-      );
+      final savedUsername = loginData.getString('username');
+      final savedPassword = loginData.getString('password');
+
+      if (savedUsername != null && savedPassword != null) {
+        _usernameController.text = savedUsername;
+      }
     }
   }
 
@@ -66,16 +58,19 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Login",
-        style: GoogleFonts.poppins(
-        textStyle: const TextStyle(
-        fontSize: 18, color: Colors.white,
-        ),),
+        title: Text(
+          "Login",
+          style: GoogleFonts.poppins(
+            textStyle: const TextStyle(
+              fontSize: 18,
+              color: Colors.white,
+            ),
+          ),
         ),
         elevation: 0,
         centerTitle: true,
@@ -115,15 +110,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         labelText: "Email",
                         hintText: "Enter your Email",
                         prefixIcon: Icon(Icons.email),
-                        border: OutlineInputBorder()
+                        border: OutlineInputBorder(),
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return "Please enter an Email";
                         }
                         final isEmailValid = EmailValidator.validate(value);
-                        if (!isEmailValid) { 
-                          return "Please enter a valid email";
+                        if (!isEmailValid) {
+                          return "Invalid Email";
                         }
                         return null;
                       },
@@ -157,27 +152,47 @@ class _LoginScreenState extends State<LoginScreen> {
                           final username = _usernameController.text;
                           final passwordCurrent = _passwordController.text;
 
-                          loginData.setBool('login', false);
-                          loginData.setString('username', username);
-                          loginData.setString('password', passwordCurrent);
+                          final savedUsername = loginData.getString('username');
+                          final savedPassword = loginData.getString('password');
 
-                          showSuccessSnackBar(); //show success login
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => HomeScreen(viewModel: HomeScreenViewModel()),
-                            ),
-                            (route) => false,
-                          );
+                          if (savedUsername == username) {
+                            if (savedPassword == passwordCurrent) {
+                              loginData.setBool('login', false);
+                              showSuccessSnackBar(); // show success login
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      HomeScreen(viewModel: HomeScreenViewModel()),
+                                ),
+                                (route) => false,
+                              );
+                            } else {
+                              // password salah diinputkan
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("Invalid Password"),
+                                ),
+                              );
+                            }
+                          } else {
+                            // username salah diinputkan
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Invalid Username"),
+                              ),
+                            );
+                          }
                         }
                       },
-                      child: Text('Login', 
-                      style: GoogleFonts.poppins(
-                        textStyle: const TextStyle(
-                        fontSize: 18, color: Colors.white,
+                      child: Text('Login',
+                        style: GoogleFonts.poppins(
+                          textStyle: const TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
-                    ),
                     ),
                   ],
                 ),
@@ -190,6 +205,6 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
-  void onTapLogin(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.loginScreen);
-  }
+void onTapLogin(BuildContext context) {
+  Navigator.pushNamed(context, AppRoutes.loginScreen);
+}

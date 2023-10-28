@@ -14,7 +14,7 @@ class SignupScreen extends StatelessWidget {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class SignupScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Form(
-                key: _formKey,
+                key: formKey,
                 child: Column(
                   children: [
                     TextFormField(
@@ -106,7 +106,7 @@ class SignupScreen extends StatelessWidget {
                     const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {
+                        if (formKey.currentState!.validate()) {
                           onTapSignUp(context);
                         }
                       },
@@ -136,7 +136,7 @@ class SignupScreen extends StatelessWidget {
   }
 
 void onTapSignUp(BuildContext context) async {
-  if (_formKey.currentState!.validate()) {
+  if (formKey.currentState!.validate()) {
     final newUser = User(
       username: _usernameController.text,
       email: _emailController.text,
@@ -144,7 +144,7 @@ void onTapSignUp(BuildContext context) async {
 
     final loginData = await SharedPreferences.getInstance();
     loginData.setString('username', newUser.username);
-    Navigator.pushNamed(context, AppRoutes.homeScreen);
+    Navigator.pushNamed(context, AppRoutes.loginScreen);
   }
 }
 }
