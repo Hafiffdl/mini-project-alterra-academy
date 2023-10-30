@@ -16,7 +16,7 @@ class RecommendationService {
 
       Map<String, String> headers = {
         "Content-Type": "application/json",
-        "Authorization": 'Bearer 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',
+        "Authorization": 'Bearer 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',
       };
 
       String promptData =
