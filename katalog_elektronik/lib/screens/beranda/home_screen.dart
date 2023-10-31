@@ -32,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
   late DatabaseHelper dbHelper;
 
+  // untuk menginisialisasi awal
   @override
   void initState() {
     super.initState();
@@ -39,18 +40,21 @@ class _HomeScreenState extends State<HomeScreen> {
     getUsernameFromSharedPreferences();
   }
 
-  void getUsernameFromSharedPreferences() async {
-    loginData = await SharedPreferences.getInstance();
-    final savedUsername = loginData.getString('username');
-    if (savedUsername != null) {
+  void getUsernameFromSharedPreferences() async { // Mengambil data username dari SharedPreferences saat inisialisasi
+  // Memanggil SharedPreferences.getInstance() untuk mendapatkan objek SharedPreferences.
+    loginData = await SharedPreferences.getInstance(); 
+    final savedUsername = loginData.getString('username'); // Mengambil nilai username yang disimpan dalam SharedPreferences.
+    if (savedUsername != null) { // Jika username tidak null, maka melakukan perubahan pada state widget.
       setState(() {
-        widget.viewModel.setUsername(savedUsername);
+        widget.viewModel.setUsername(savedUsername);// Memanggil fungsi 'setUsername' dari objek viewModel dengan nilai 'savedUsername'.
       });
     }
   }
 
   void navigateToProductDetail(int index) {
+    // jika index berada dalam length yang valid, jika ya maka akan navigasi ke halaman product detail
     if (index >= 0 && index < widget.viewModel.products.length) {
+      // untuk menampilkan halaman detail product
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -68,8 +72,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void navigateFavorite(Product product) {
+    // untuk mendapatkan objek SavedProducts dari Provider
     final savedProducts = Provider.of<SavedProducts>(context, listen: false);
-    showDialog(
+    showDialog( // Menampilkan dialog konfirmasi untuk menandai atau menghapus produk favorit
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -89,11 +94,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   savedProducts.removeFromSavedProducts(product);
                   dbHelper.deleteProduct(product.id!);
                 } else {
+                  // jika tidak, tambahkan produk ke daftar favorit dan database sqflite
                   savedProducts.addToSavedProducts(product);
                   dbHelper.insertProduct(product);
                 }
                 setState(() {});
-
+                // menampilkan toast notifikasi jika produk telah di bookmark
                 FToast().init(context);
                 FToast().showToast(
                   child: Container(
@@ -161,6 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 10),
               CarouselSlider(
                 items: [
+                  // Widget untuk menampilkan gambar slider 1
                   SingleChildScrollView(
                     child: Container(
                     margin: const EdgeInsets.all(5.0),
@@ -260,11 +267,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   viewportFraction: 0.8,
                 ),
               ),
-              Expanded(
+              Expanded( // bagian ini membungkus ListView.builder untuk membuat daftar produk dengan pengguliran
                 child: ListView.builder(
-                  itemCount: (viewModel.products.length / 2).ceil(),
+                  itemCount: (viewModel.products.length / 2).ceil(), // menghitung jumlah baris yang dibutuhkan
                   itemBuilder: (context, index) {
-                    final startIndex = index * 2;
+                    final startIndex = index * 2; // Indeks awal produk pada baris ini.
                     return Row(
                       children: [
                         Expanded(
@@ -278,7 +285,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             child: GestureDetector(
                               onTap: () {
-                                navigateToProductDetail(startIndex);
+                                navigateToProductDetail(startIndex); // Menavigasi ke detail produk saat card diketuk.
                               },
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -330,6 +337,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                       GestureDetector(
                                         onTap: () {
+                                          // Menambah produk dari favorit saat icon "bookmark" diketuk.
                                           navigateFavorite(viewModel.products[startIndex]);
                                           setState(() {});
                                         },
@@ -443,7 +451,6 @@ class _HomeScreenState extends State<HomeScreen> {
             savedProducts: savedProducts.savedProducts,
             dbHelper: dbHelper,
             onProductDeleted: (product) {
-              // Handle product deletion here if needed
             },
           ),
           // Page 4 (Profile)

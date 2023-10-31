@@ -7,6 +7,7 @@ class ProductDetailScreen extends StatefulWidget {
   final Product product;
   final Function(Product) onSave;
 
+  // konstruktor menerima objek produk dan fungsi onSave sebagai parameter
   const ProductDetailScreen({
     Key? key,
     required this.product,
@@ -19,17 +20,20 @@ class ProductDetailScreen extends StatefulWidget {
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
+  // mendeklarasikan variabel untuk menyimpan gambar QR.
   late QrImage qrImage;
 
 @override
 void initState() {
   super.initState();
 
+  // Inisialisasi QR Code dengan data product
   final qrCode = QrCode(
     8,
     QrErrorCorrectLevel.H,
   )..addData(widget.product.name ?? '');
 
+  // Buat widget QR Image dengan QR Code yang telah dibuat
   qrImage = QrImage(qrCode);
 }
 
@@ -83,7 +87,7 @@ void initState() {
                         fontSize: 16,
                         fontStyle: FontStyle.normal,
                         fontWeight: FontWeight.normal,
-                      ),
+                      ),  
                       textAlign: TextAlign.justify,
                     ),
                   ],
@@ -99,7 +103,7 @@ void initState() {
               ),
               color: Colors.white,
               child: PrettyQrView(
-              qrImage: qrImage,
+              qrImage: qrImage, // Menampilkan QR Code yang sudah dibuat sebelumnya
               decoration: const PrettyQrDecoration(
                 image: PrettyQrDecorationImage(
                   image: AssetImage('assets/splashscreen.png'),)
