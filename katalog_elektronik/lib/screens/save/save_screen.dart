@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:katalog_elektronik/helper/database_helper.dart';
 import 'package:katalog_elektronik/models/product_model.dart';
+import 'package:katalog_elektronik/providers/save_provider.dart';
 import 'package:katalog_elektronik/screens/product_detail.dart';
+import 'package:provider/provider.dart';
 
 class SaveScreen extends StatefulWidget {
   final List<Product> savedProducts;
@@ -21,12 +23,14 @@ class SaveScreen extends StatefulWidget {
 }
 
 class _SaveScreenState extends State<SaveScreen> {
+  late SavedProducts savedProducts;
   late DatabaseHelper dbHelper;
   late FToast fToast;
 
   @override
   void initState() {
     super.initState();
+    savedProducts = Provider.of<SavedProducts>(context, listen: false);
     dbHelper = DatabaseHelper();
     fToast = FToast();
     getAllProducts();
@@ -35,8 +39,8 @@ class _SaveScreenState extends State<SaveScreen> {
   Future<void> getAllProducts() async {
     final products = await dbHelper.getProducts();
     setState(() {
-      widget.savedProducts.clear();
-      widget.savedProducts.addAll(products);
+      savedProducts.savedProducts.clear();
+      savedProducts.savedProducts.addAll(products);
     });
   }
 
@@ -76,6 +80,7 @@ class _SaveScreenState extends State<SaveScreen> {
 
   @override
   Widget build(BuildContext context) {
+    savedProducts = Provider.of<SavedProducts>(context, listen: false);
     return Scaffold(
       backgroundColor: Colors.teal[300],
       appBar: AppBar(
@@ -87,11 +92,11 @@ class _SaveScreenState extends State<SaveScreen> {
         ),
       ),
       body: Center(
-        child: widget.savedProducts.isNotEmpty
+        child: savedProducts.savedProducts.isNotEmpty
             ? ListView.builder(
-                itemCount: widget.savedProducts.length,
+                itemCount: savedProducts.savedProducts.length,
                 itemBuilder: (context, index) {
-                  final product = widget.savedProducts[index];
+                  final product = savedProducts.savedProducts[index];
                   return Card(
                     color: Colors.white,
                     margin: const EdgeInsets.all(10.0),
@@ -152,7 +157,7 @@ class _SaveScreenState extends State<SaveScreen> {
                                         Navigator.of(context).pop();
                                         widget.onProductDeleted(product);
                                         setState(() {
-                                          widget.savedProducts.remove(product);
+                                          savedProducts.savedProducts.remove(product);
                                         });
                                         if (product.id != null) {
                                           await dbHelper.deleteProduct(product.id!);

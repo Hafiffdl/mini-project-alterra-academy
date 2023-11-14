@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:katalog_elektronik/models/db_manager.dart';
+import 'package:katalog_elektronik/models/product_model.dart';
+import 'package:katalog_elektronik/providers/product_provider.dart';
 import 'package:katalog_elektronik/providers/save_provider.dart';
 import 'package:katalog_elektronik/routes/app_routes.dart';
 import 'package:katalog_elektronik/providers/user_provider.dart';
@@ -12,6 +14,7 @@ void main() {
         ChangeNotifierProvider(create: (context) => DBManager()),
         ChangeNotifierProvider(create: (context) => UserProvider()),
         ChangeNotifierProvider(create: (context) => SavedProducts()),
+        ChangeNotifierProvider(create: (context) => ProductProvider(Product())),
       ],
       child: const MyApp(),
     ),
